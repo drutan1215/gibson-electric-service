@@ -771,37 +771,8 @@ footer{background:#050505;border-top:1px solid rgba(255,255,255,.05);padding:4re
       </div>
       <div class="contact-right reveal rd1">
         <div class="contact-form-box">
-          <div style="font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between">
-            <span>Contact Form</span>
-            <span style="color:#2eb86b;display:flex;align-items:center;gap:.4rem"><span style="width:6px;height:6px;border-radius:50%;background:#2eb86b;display:inline-block;box-shadow:0 0 5px #2eb86b"></span>Secure</span>
-          </div>
-          <form id="contactForm" novalidate>
-            <div class="form-row-2">
-              <div class="form-field">
-                <label class="form-lbl" for="cf-name">Name *</label>
-                <input class="form-inp" type="text" id="cf-name" name="name" placeholder="Your full name" required>
-              </div>
-              <div class="form-field">
-                <label class="form-lbl" for="cf-phone">Phone</label>
-                <input class="form-inp" type="tel" id="cf-phone" name="phone" placeholder="(254) 000-0000">
-              </div>
-            </div>
-            <div class="form-field">
-              <label class="form-lbl" for="cf-email">Email *</label>
-              <input class="form-inp" type="email" id="cf-email" name="email" placeholder="your@email.com" required>
-            </div>
-            <div class="form-field">
-              <label class="form-lbl" for="cf-message">Message *</label>
-              <textarea class="form-ta" id="cf-message" name="message" placeholder="Describe your electrical issue or project…" required></textarea>
-            </div>
-            <div class="form-submit-wrap">
-              <button type="submit" class="btn-form-submit" id="formSubmitBtn">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                Send Message
-              </button>
-            </div>
-            <div class="form-feedback" id="formFeedback"></div>
-          </form>
+          <div class="deftform" data-form-id="b5f566f9-7703-420d-90f6-8c9b7926dfb0" data-form-width="100%" data-form-align="center" data-form-auto-height="1"></div>
+          <script src="https://cdn.deftform.com/embed.js"></script>
         </div>
       </div>
     </div>
@@ -935,53 +906,6 @@ document.getElementById('breakerGrid').addEventListener('click', e => {
   breaker.style.transition = 'background .05s';
   setTimeout(() => breaker.style.transition = '', 150);
   updatePanelStatus();
-});
-
-// Deftform contact form
-document.getElementById('contactForm').addEventListener('submit', async e => {
-  e.preventDefault();
-  const btn = document.getElementById('formSubmitBtn');
-  const fb = document.getElementById('formFeedback');
-  const name = document.getElementById('cf-name').value.trim();
-  const email = document.getElementById('cf-email').value.trim();
-  const phone = document.getElementById('cf-phone').value.trim();
-  const message = document.getElementById('cf-message').value.trim();
-  if (!name || !email || !message) {
-    fb.className = 'form-feedback err';
-    fb.textContent = '⚠ Please fill in all required fields.';
-    return;
-  }
-  btn.disabled = true;
-  btn.textContent = 'Sending…';
-  fb.className = 'form-feedback';
-  try {
-    const res = await fetch('https://deftform.com/api/v1/forms/sQPW7u/response', {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Bearer vCrik1jnLbMkIkAX8Gb3IJIB1rE6lcLyLkWPc0xlca906666',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ data: {
-        '22760cc2-b526-4421-bb63-c242a8910f7a': name,
-        'df64796d-8eb3-4ca9-9238-18d59c2df854': email,
-        '6f72bee0-f79f-4881-a50c-15b6be9a7d34': phone,
-        '3a31c9fc-7f70-456e-afdc-47a1ac5d8bc2': message
-      }})
-    });
-    if (res.ok) {
-      fb.className = 'form-feedback ok';
-      fb.textContent = '✓ Message sent! We\'ll be in touch soon.';
-      e.target.reset();
-    } else {
-      throw new Error(res.status);
-    }
-  } catch {
-    fb.className = 'form-feedback err';
-    fb.textContent = '⚠ Something went wrong. Please call us directly at (254) 401-0033.';
-  }
-  btn.disabled = false;
-  btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Send Message';
 });
 
 const voltEl = document.getElementById('voltReading');
